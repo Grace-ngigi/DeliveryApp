@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "197135393868",
+    "project_id": "dot-delivery-be175",
+    "storage_bucket": "dot-delivery-be175.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197135393868:android:77ddfcf803bb80566080e9",
+        "android_client_info": {
+          "package_name": "com.sais.deliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197135393868-u4dl3ql5if0r2hahja4frbj5siti0g31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4NkrEPcqv325kp1UQT2gvVZ9sXoHEl-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197135393868-u4dl3ql5if0r2hahja4frbj5siti0g31.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

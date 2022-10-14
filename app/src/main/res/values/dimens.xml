@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size">22sp</dimen>
+    <dimen name="del_font_size">40sp</dimen>
+
+<!--    logins-->
+    <dimen name="logins_font_Size">20sp</dimen>
+    <dimen name="logins_margin_start_end">32dp</dimen>
+</resources>
