@@ -3,6 +3,7 @@ package com.sais.deliveryapp.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sais.deliveryapp.databinding.ItemsListBinding
 import com.sais.deliveryapp.databinding.SampleListBinding
@@ -19,8 +20,12 @@ class ItemAdapter(private val context: Context,
 			val shop = binding.tvShop
 			val price = binding.tvDisplayPrice
 			val quantity = binding.tvItemQuantity
-			val addItem = binding.btAddItem
+			val addToCart = binding.btAddItem
 		}
+
+	interface  ItemListClickListener {
+		fun addToCartClickLister(item: ItemList)
+	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		return ViewHolder(ItemsListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -32,7 +37,11 @@ class ItemAdapter(private val context: Context,
 		holder.shop.text = item.shop
 //		holder.pic.setImageURI(Uri.parse(item.pic))
 		holder.price.text = item.price.toString()
-		holder.quantity.text = item.quantity.toString()
+		holder.quantity.text = item.quantity
+
+		holder.addToCart.setOnClickListener {
+			Toast.makeText(context, "Added to Cart", Toast.LENGTH_LONG).show()
+		}
 	}
 
 	override fun getItemCount(): Int {
