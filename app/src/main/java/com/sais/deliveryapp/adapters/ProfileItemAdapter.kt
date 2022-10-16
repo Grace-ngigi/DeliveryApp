@@ -4,18 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sais.deliveryapp.databinding.ItemsListBinding
 import com.sais.deliveryapp.databinding.ProfileItemsBinding
-import com.sais.deliveryapp.databinding.SampleListBinding
-import com.sais.deliveryapp.models.ItemList
-import com.sais.deliveryapp.models.SampleList
+import com.sais.deliveryapp.models.Item
 
 class ProfileItemAdapter(private val context: Context,
-                         private val catItems: ArrayList<ItemList>
+                         private val catItems: ArrayList<Item>
 	): RecyclerView.Adapter<ProfileItemAdapter.ViewHolder>() {
 
 		class  ViewHolder(binding: ProfileItemsBinding) : RecyclerView.ViewHolder(binding.root){
-			val pic = binding.ivItem
 			val title = binding.tvItemTitle
 			val desc = binding.tvDescription
 			val price = binding.tvDisplayPrice

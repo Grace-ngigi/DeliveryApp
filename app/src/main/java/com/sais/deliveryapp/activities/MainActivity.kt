@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 	lateinit var binding: ActivityMainBinding
 	private var catInfo = ArrayList<CategoryList>()
 	private var popularInfo = ArrayList<SampleList>()
-	private var itemsInfo = ArrayList<ItemList>()
+	private var itemsInfo = ArrayList<Item>()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -39,15 +39,15 @@ class MainActivity : AppCompatActivity() {
 		val itemAdapter = ItemAdapter(this, itemsInfo)
 		binding.rvItems.adapter = itemAdapter
 
-		val itemList = Items.itemLists
+		val itemList = Items.items
 		itemList.forEach {
 			val id = it.id
 			val title = it.title
-			val shop = it.shop
+			val shop = it.bsName
 			val price = it.price
 			val quantity = it.quantity
 			val desc = it.description
-			itemsInfo.add(ItemList(id, title, shop, price, quantity, desc))
+//			itemsInfo.add(Item(id, title, shop, price, quantity, desc))
 		}
 	}
 

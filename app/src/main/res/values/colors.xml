@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_primary">#f44336</color>
-    <color name="color_primary_variant">#fc7a57</color>
-    <color name="color_accent">#fcd757</color>
+    <color name="color_primary_variant">#f44336</color>
+    <color name="color_accent">#f44336</color>
     <color name="color_accent_variant">#EEFC57</color>
+    <color name="snackBar_error_color">#F44336</color>
+    <color name="yellow">#fcd757</color>
+    <color name="pink">#fc7a57</color>
     <color name="grey">#CAC4C4</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

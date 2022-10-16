@@ -6,12 +6,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sais.deliveryapp.databinding.ItemsListBinding
-import com.sais.deliveryapp.databinding.SampleListBinding
-import com.sais.deliveryapp.models.ItemList
-import com.sais.deliveryapp.models.SampleList
+import com.sais.deliveryapp.models.Item
 
 class ItemAdapter(private val context: Context,
-                  private val catItems: ArrayList<ItemList>
+                  private val catItems: ArrayList<Item>
 	): RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
 		class  ViewHolder(binding: ItemsListBinding) : RecyclerView.ViewHolder(binding.root){
@@ -24,7 +22,7 @@ class ItemAdapter(private val context: Context,
 		}
 
 	interface  ItemListClickListener {
-		fun addToCartClickLister(item: ItemList)
+		fun addToCartClickLister(item: Item)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +32,7 @@ class ItemAdapter(private val context: Context,
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val item = catItems[position]
 		holder.title.text = item.title
-		holder.shop.text = item.shop
+		holder.shop.text = item.bsName
 //		holder.pic.setImageURI(Uri.parse(item.pic))
 		holder.price.text = item.price.toString()
 		holder.quantity.text = item.quantity

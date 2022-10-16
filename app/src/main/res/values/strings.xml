@@ -44,4 +44,9 @@
     <string name="offers">Offers</string>
     <string name="support">Support</string>
     <string name="account">Account</string>
+    <string name="please_click_back_again_to_exit">Click Again to Exit</string>
+    <string name="submit">Submit</string>
+    <string name="desc">Description</string>
+    <string name="quantity">Quantity</string>
+    <string name="title">Title</string>
 </resources>
