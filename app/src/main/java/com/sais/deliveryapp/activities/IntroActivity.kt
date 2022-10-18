@@ -13,7 +13,7 @@ class IntroActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		binding = ActivityIntroBinding.inflate(layoutInflater)
 		setContentView(binding.root)
-binding.btnStart.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+binding.btnStart.setOnClickListener { startActivity(Intent(this, BottomTestActivity::class.java)) }
 
 	}
 }

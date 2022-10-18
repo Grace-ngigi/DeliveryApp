@@ -4,9 +4,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.sais.deliveryapp.activities.ProfileActivity
-import com.sais.deliveryapp.activities.RegisterBusiness
-import com.sais.deliveryapp.activities.UploadItem
+import com.sais.deliveryapp.activities.*
 import com.sais.deliveryapp.logins.LoginActivity
 import com.sais.deliveryapp.logins.RegisterActivity
 import com.sais.deliveryapp.models.Business
@@ -80,7 +78,7 @@ class FireStore {
 
 	fun fetchBusiness(activity: ProfileActivity){
 		db.collection(Constants.BUSINESS)
-			.whereEqualTo("owner", getCurrentUserId())
+			.whereEqualTo("retailerId", getCurrentUserId())
 			.get()
 			.addOnSuccessListener {
 					document->
@@ -111,9 +109,9 @@ class FireStore {
 			}
 	}
 
-	fun fetchItems(activity:ProfileActivity, business: Business){
+	fun fetchItems(activity:ItemsActivity, business: Business){
 		db.collection(Constants.ITEMS)
-			.whereEqualTo("bsName", business.name)
+			.whereEqualTo("bsId", business.id)
 			.get()
 			.addOnSuccessListener {
 				val itemList : ArrayList<Item> = ArrayList()
@@ -129,5 +127,23 @@ class FireStore {
 				activity.showErrorSnackBar("${it.message}")
 			}
 
+	}
+
+	fun fetchAllItems(activity:MainActivity){
+		db.collection(Constants.ITEMS)
+			.get()
+			.addOnSuccessListener {
+				val itemsList : ArrayList<Item> = ArrayList()
+				for (i in it){
+					val item = i.toObject(Item::class.java)
+					item.id = i.id
+					itemsList.add(item)
+				}
+				activity.allItems(itemsList)
+			}
+			.addOnFailureListener {
+				activity.hideProgressDialog()
+				activity.showErrorSnackBar("${it.message}")
+			}
 	}
 }

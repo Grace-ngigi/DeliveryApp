@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item android:title="@string/home"
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home"/>
+        <item android:title="@string/offers"
+            android:id="@+id/offers"
+            android:icon="@drawable/ic_offer"/>
+
+    <item android:title=""
+        android:id="@+id/holder"
+        android:enabled="false"
+        />
+
+    <item android:title="@string/support"
+            android:id="@+id/support"
+            android:icon="@drawable/ic_contact_support"/>
+    <item android:title="@string/account"
+        android:id="@+id/account"
+        android:icon="@drawable/ic_person"/>
+</menu>

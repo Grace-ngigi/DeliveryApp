@@ -9,8 +9,7 @@ android:padding="16dp"
 android:layout_margin="16dp"
 tools:context=".activities.RegisterBusiness">
 
-
-<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/tilBsName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,7 +24,7 @@ tools:context=".activities.RegisterBusiness">
         android:hint="@string/shop_name" />
 </com.google.android.material.textfield.TextInputLayout>
 
-<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/tilBsType"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -42,7 +41,8 @@ tools:context=".activities.RegisterBusiness">
         android:hint="@string/business_type" />
 
 </com.google.android.material.textfield.TextInputLayout>
-<com.google.android.material.textfield.TextInputLayout
+
+    <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/tilBsLocation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@ tools:context=".activities.RegisterBusiness">
 
 </com.google.android.material.textfield.TextInputLayout>
 
-<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/tilBsTill"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -79,7 +79,75 @@ tools:context=".activities.RegisterBusiness">
 
 </com.google.android.material.textfield.TextInputLayout>
 
-<Button
+    <LinearLayout
+        android:id="@+id/llBsLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilBsTill">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Upload Bs Logo" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUploadLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_camera"/>
+
+        <ImageView
+            android:id="@+id/ivDisplayLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/grapefruit" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBsOwner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llBsLogo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tetBsOwner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilBsContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilBsOwner">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tetBsContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
     android:id="@+id/btSubmit"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -88,7 +156,6 @@ tools:context=".activities.RegisterBusiness">
     android:background="@drawable/button_style"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tilBsTill" />
-
+    app:layout_constraintTop_toBottomOf="@+id/tilBsContact" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

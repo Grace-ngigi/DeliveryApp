@@ -7,7 +7,7 @@
     <color name="snackBar_error_color">#F44336</color>
     <color name="yellow">#fcd757</color>
     <color name="pink">#fc7a57</color>
-    <color name="grey">#CAC4C4</color>
+    <color name="grey">#8B8A8A</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sais.deliveryapp.adapters.BusinessAdapter
+import com.sais.deliveryapp.adapters.ItemAdapter
 import com.sais.deliveryapp.adapters.ProfileItemAdapter
 import com.sais.deliveryapp.databinding.ActivityProfileBinding
 import com.sais.deliveryapp.frebase.FireStore
@@ -25,59 +29,68 @@ class ProfileActivity : BaseActivity() {
 		setContentView(binding.root)
 		db = FirebaseFirestore.getInstance()
 
+		showProgressDialog()
 		FireStore().fetchBusiness(this)
 
-		binding.ivProfile.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
-		binding.btCreateProfile.setOnClickListener { startActivity(Intent(this, RegisterBusiness::class.java)) }
-		binding.fabUploadItem.setOnClickListener {
-			val intent = Intent(this, UploadItem::class.java)
-			intent.putExtra(Constants.EXTRA_BUSINESS_INFO, businessInfo)
+		binding.ivProfile.setOnClickListener {
+			FirebaseAuth.getInstance().signOut()
+			val intent = Intent(this, MainActivity::class.java)
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
 			startActivity(intent)
+			finish()
 		}
+		binding.btCreateProfile.setOnClickListener {
+			startActivity(
+				Intent(
+					this,
+					RegisterBusiness::class.java
+				)
+			)
+		}
+
+		binding.tvUpdate.setOnClickListener { startActivity(Intent(this, RegisterBusiness::class.java)) }
+
+		binding.btAddBs.setOnClickListener {
+			startActivity(
+				Intent(
+					this,
+					RegisterBusiness::class.java
+				)
+			)
+		}
+//		binding.btGoToItems.setOnClickListener {
+//			val intent = Intent(this, ItemsActivity::class.java)
+//			intent.putExtra(Constants.EXTRA_BUSINESS_INFO, businessInfo)
+//			startActivity(intent)
+//		}
 	}
 
 	fun businessDetails(business: ArrayList<Business>){
+		hideProgressDialog()
 		if (business.size > 0){
-			binding.clNoBusinessProfile.visibility = View.GONE
+			binding.clNoBusinessProfile.visibility = View.INVISIBLE
 			binding.clBusinessProfile.visibility = View.VISIBLE
-			business.forEach {
+
+			binding.rvBusinessList.layoutManager =
+				LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+			val itemAdapter = BusinessAdapter(this, business)
+			binding.rvBusinessList.adapter = itemAdapter
+
+			itemAdapter.setOnClickListener(object : BusinessAdapter.BusinessOnClickListener{
+				override fun onClick(view: View, item: Business) {
+					val intent = Intent(this@ProfileActivity, ItemsActivity::class.java)
+					intent.putExtra(Constants.EXTRA_BUSINESS_INFO, item)
+					startActivity(intent)				}
+			})
+				business.forEach {
 				businessInfo = it
-				binding.tvShop.text = it.name
-				binding.tvBsType.text = it.type
-				binding.tvLocation.text = it.location
-				binding.tvTillNo.text = it.till.toString()
+				binding.tvOwnerName.text = it.bsOwner
+				binding.tvContact.text = it.contact.toString()
 			}
-			FireStore().fetchItems(this, businessInfo!!)
 		} else {
-			binding.clBusinessProfile.visibility = View.GONE
+			binding.clBusinessProfile.visibility = View.INVISIBLE
 			binding.clNoBusinessProfile.visibility = View.VISIBLE
 		}
 
 	}
-
-	 fun itemsDetails(items: ArrayList<Item>) {
-		 if (items.size > 0){
-			 binding.rvUploadedItems.visibility= View.VISIBLE
-			 binding.tvNoItems.visibility = View.GONE
-
-		binding.rvUploadedItems.layoutManager =
-			LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,
-				false)
-
-		val itemsAdapter = ProfileItemAdapter(this, items)
-		binding.rvUploadedItems.adapter = itemsAdapter
-
-//		items.forEach {
-//			val id = it.id
-//			val title = it.title
-//			val shop = it.bsName
-//			val price = it.price
-//			val quantity = it.quantity
-//			val desc = it.description
-//		}
-		 } else{
-		binding.rvUploadedItems.visibility= View.GONE
-			 binding.tvNoItems.visibility = View.VISIBLE
-		 }
-	 }
 }

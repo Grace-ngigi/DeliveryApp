@@ -4,15 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Item (
-	var id: String,
-	var title: String,
-	var bsName: String,
-	var price: Int,
-	var quantity: String,
-	var description: String,
-	var category: String
+	var id: String="",
+	var bsId: String ="",
+	var title: String  ="",
+	var bsName: String = "",
+	var price: Int = 0,
+	var quantity: String = "",
+	var description: String = "",
+	var category: String = ""
 	): Parcelable {
 	constructor(parcel: Parcel) : this(
+		parcel.readString()!!,
 		parcel.readString()!!,
 		parcel.readString()!!,
 		parcel.readString()!!,
@@ -29,8 +31,10 @@ data class Item (
 
 	override fun writeToParcel(p0: Parcel, p1: Int) {
 		p0.writeString(id)
+		p0.writeString(bsId)
 		p0.writeString(title)
 		p0.writeString(bsName)
+		p0.writeString(category)
 		p0.writeInt(price)
 		p0.writeString(quantity)
 		p0.writeString(description)

@@ -3,15 +3,20 @@ package com.sais.deliveryapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sais.deliveryapp.adapters.BusinessAdapter
 import com.sais.deliveryapp.adapters.CategoryAdapter
 import com.sais.deliveryapp.adapters.ItemAdapter
 import com.sais.deliveryapp.adapters.SampleAdapter
 import com.sais.deliveryapp.databinding.ActivityMainBinding
+import com.sais.deliveryapp.frebase.FireStore
+import com.sais.deliveryapp.logins.RegisterActivity
 import com.sais.deliveryapp.models.*
+import com.sais.deliveryapp.utils.Constants
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
 	lateinit var binding: ActivityMainBinding
 	private var catInfo = ArrayList<CategoryList>()
@@ -25,30 +30,39 @@ class MainActivity : AppCompatActivity() {
 
 		setCategories()
 		setUpSampleItems()
-		setUpItems()
+		showProgressDialog()
+		FireStore().fetchAllItems(this)
 		binding.llWishList.setOnClickListener { startActivity(Intent(this, WishListActivity::class.java)) }
 		binding.llOffers.setOnClickListener { startActivity(Intent(this, OffersActivity::class.java)) }
 		binding.fabCart.setOnClickListener { startActivity(Intent(this, CartActivity::class.java)) }
 		binding.llSupport.setOnClickListener { startActivity(Intent(this, SupportActivity::class.java)) }
-		binding.llAccount.setOnClickListener { startActivity(Intent(this, ProfileActivity::class.java)) }
+
+		binding.llAccount.setOnClickListener {
+			val currentUserId = FireStore().getCurrentUserId()
+			if (currentUserId.isNotEmpty()){
+				startActivity(Intent(this, ProfileActivity::class.java))
+			} else {
+				startActivity(Intent(this, RegisterActivity::class.java))
+			}
+			finish()
+		}
 
 	}
 
-	private fun setUpItems() {
+	fun allItems(items: ArrayList<Item>) {
+		hideProgressDialog()
+		if (items.size > 0){
 		binding.rvItems.layoutManager = GridLayoutManager(this, 2)
-		val itemAdapter = ItemAdapter(this, itemsInfo)
+		val itemAdapter = ItemAdapter(this, items)
 		binding.rvItems.adapter = itemAdapter
 
-		val itemList = Items.items
-		itemList.forEach {
-			val id = it.id
-			val title = it.title
-			val shop = it.bsName
-			val price = it.price
-			val quantity = it.quantity
-			val desc = it.description
-//			itemsInfo.add(Item(id, title, shop, price, quantity, desc))
-		}
+			itemAdapter.setOnClickListener(object : ItemAdapter.ItemOnClickListener{
+				override fun onClick(view: View, item: Item) {
+					val intent = Intent(this@MainActivity, CartActivity::class.java)
+					intent.putExtra(Constants.EXTRA_ITEM_INFO, item)
+					startActivity(intent)				}
+			})
+	}
 	}
 
 	private fun setCategories() {

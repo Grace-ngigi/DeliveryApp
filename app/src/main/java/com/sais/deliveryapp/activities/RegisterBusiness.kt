@@ -13,7 +13,9 @@ class RegisterBusiness : BaseActivity() {
 	private var bsName: String? = null
 	private var bsType: String? = null
 	private var location: String? = null
-	private var bsTill: Int? = 0
+	private var bsTill: String? = null
+	private var  bsOwner: String? = null
+	private var contact: String? = null
 	private var businessList = ArrayList<Business>()
 	lateinit var db: FirebaseFirestore
 
@@ -29,20 +31,25 @@ class RegisterBusiness : BaseActivity() {
 
 	private fun registerBsProfile() {
 		val id = db .collection(Constants.BUSINESS).document().id
-		val owner = FireStore().getCurrentUserId()
+		val retailerId = FireStore().getCurrentUserId()
 		bsName = binding.teBsName.text.toString()
 		bsType = binding.tetBsType.text.toString()
 		location = binding.tetBsLocation.text.toString()
-		bsTill= binding.tetBsTill.text.toString().toInt()
+		bsTill= binding.tetBsTill.text.toString()
+		bsOwner = binding.tetBsOwner.text.toString()
+		contact = binding.tetBsContact.text.toString()
 
-		if (validateInput(bsName!!, bsType!!,location!!, bsTill!!)){
+
+		if (validateInput(bsName!!, bsType!!,location!!, bsTill!!, bsOwner!!, contact!!)){
 			showProgressDialog()
-			val business = Business(owner, bsName!!, bsType!!, location!!, bsTill!!, id)
+			val business = Business(retailerId, bsName!!, bsType!!, location!!, bsTill!!.toInt(), bsOwner!!, contact!!.toInt(), id)
 			FireStore().saveBsProfile(this, business)
 		}
 	}
 
-	private fun validateInput(name: String, type: String, location: String, till:Int): Boolean {
+	private fun validateInput(name: String, type: String, 
+	                          location: String, till:String, 
+	                          bsOwner: String, contact: String): Boolean {
 		return when {
 			TextUtils.isEmpty(name) -> {
 				showErrorSnackBar("Please Enter your Business Name")
@@ -56,8 +63,16 @@ class RegisterBusiness : BaseActivity() {
 				showErrorSnackBar("Please your Business Location")
 				false
 			}
-			TextUtils.isEmpty(till.toString()) -> {
+			TextUtils.isEmpty(till) -> {
 				showErrorSnackBar("Please Your Mpesa Till Number")
+				false
+			}
+			TextUtils.isEmpty(bsOwner) -> {
+				showErrorSnackBar("Please Your Name")
+				false
+			}
+			TextUtils.isEmpty(contact) -> {
+				showErrorSnackBar("Please Your Phone Number")
 				false
 			}
 			else -> {

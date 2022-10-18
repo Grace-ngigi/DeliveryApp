@@ -9,4 +9,9 @@ object Constants {
 
 	const val EXTRA_ITEM_INFO = "items"
 	const val ITEMS = "Items"
+
+	const val GALLERY = 100
+
+	val category = arrayOf("Foodstuff" , "Supermarket item" , "Alcoholic Drink", "Pharmaceutical Product")
+
 }

@@ -1,11 +1,15 @@
 package com.sais.deliveryapp.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.sais.deliveryapp.activities.UploadItem
 import com.sais.deliveryapp.databinding.ItemsListBinding
+import com.sais.deliveryapp.models.Business
 import com.sais.deliveryapp.models.Item
 
 class ItemAdapter(private val context: Context,
@@ -21,8 +25,13 @@ class ItemAdapter(private val context: Context,
 			val addToCart = binding.btAddItem
 		}
 
-	interface  ItemListClickListener {
-		fun addToCartClickLister(item: Item)
+	private  var onClickListener: ItemOnClickListener? = null
+	interface ItemOnClickListener {
+		fun onClick(view: View, item: Item)
+	}
+
+	fun setOnClickListener(onClickListener: ItemOnClickListener){
+		this.onClickListener = onClickListener
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,7 +47,7 @@ class ItemAdapter(private val context: Context,
 		holder.quantity.text = item.quantity
 
 		holder.addToCart.setOnClickListener {
-			Toast.makeText(context, "Added to Cart", Toast.LENGTH_LONG).show()
+			onClickListener?.onClick(it, item)
 		}
 	}
 

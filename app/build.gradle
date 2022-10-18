@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.karumi:dexter:6.0.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.4.0'
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

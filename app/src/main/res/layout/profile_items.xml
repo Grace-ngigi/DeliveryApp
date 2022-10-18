@@ -12,12 +12,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:background="@color/white"
         android:layout_height="wrap_content"
         >
 
         <TextView
-            android:id="@+id/btAddItem2"
+            android:id="@+id/btEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -37,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Description"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +47,6 @@
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:text="Title"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivItem"
@@ -79,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ksh"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
@@ -88,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="0.00"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -102,7 +97,7 @@
             app:srcCompat="@drawable/tangerine" />
 
         <TextView
-            android:id="@+id/btAddItem"
+            android:id="@+id/btDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -123,7 +118,6 @@
             android:text="Item Description"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivItem" />
 
