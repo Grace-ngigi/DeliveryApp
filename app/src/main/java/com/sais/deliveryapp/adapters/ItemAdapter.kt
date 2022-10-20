@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.sais.deliveryapp.activities.UploadItem
 import com.sais.deliveryapp.databinding.ItemsListBinding
 import com.sais.deliveryapp.models.Business
@@ -42,9 +43,12 @@ class ItemAdapter(private val context: Context,
 		val item = catItems[position]
 		holder.title.text = item.title
 		holder.shop.text = item.bsName
-//		holder.pic.setImageURI(Uri.parse(item.pic))
 		holder.price.text = item.price.toString()
 		holder.quantity.text = item.quantity
+		Glide.with(context)
+			.load(item.image)
+			.centerCrop()
+			.into(holder.pic)
 
 		holder.addToCart.setOnClickListener {
 			onClickListener?.onClick(it, item)

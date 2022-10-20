@@ -79,14 +79,9 @@ class ProfileActivity : BaseActivity() {
 			itemAdapter.setOnClickListener(object : BusinessAdapter.BusinessOnClickListener{
 				override fun onClick(view: View, item: Business) {
 					val intent = Intent(this@ProfileActivity, ItemsActivity::class.java)
-					intent.putExtra(Constants.EXTRA_BUSINESS_INFO, item)
+					intent.putExtra(Constants.EXTRA_BUSINESS, item)
 					startActivity(intent)				}
 			})
-				business.forEach {
-				businessInfo = it
-				binding.tvOwnerName.text = it.bsOwner
-				binding.tvContact.text = it.contact.toString()
-			}
 		} else {
 			binding.clBusinessProfile.visibility = View.INVISIBLE
 			binding.clNoBusinessProfile.visibility = View.VISIBLE

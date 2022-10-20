@@ -4,11 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Retailer(
-	val  id: String = "",
-	val email: String= ""
+	var id: String = "",
+	val contact: Int= 0,
+	val name: String=""
 ): Parcelable{
 	constructor(parcel: Parcel) : this(
 		parcel.readString()!!,
+		parcel.readInt(),
 		parcel.readString()!!
 	) {
 	}
@@ -19,7 +21,9 @@ data class Retailer(
 
 	override fun writeToParcel(p0: Parcel, p1: Int) {
 		p0.writeString(id)
-		p0.writeString(email)
+		p0.writeInt(contact)
+		p0.writeString(name)
+
 	}
 
 	companion object CREATOR : Parcelable.Creator<Retailer> {

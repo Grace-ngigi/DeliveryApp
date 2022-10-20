@@ -1,7 +1,9 @@
 package com.sais.deliveryapp.models
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 
 data class Item (
 	var id: String="",
@@ -11,7 +13,12 @@ data class Item (
 	var price: Int = 0,
 	var quantity: String = "",
 	var description: String = "",
-	var category: String = ""
+	var category: String = "",
+	var image: String ="",
+//	var discount: Boolean= false,
+//	var discountAmount: Int = 0,
+//	var delivery: Boolean = false,
+//	var deliveryFee : Int = 0
 	): Parcelable {
 	constructor(parcel: Parcel) : this(
 		parcel.readString()!!,
@@ -19,6 +26,7 @@ data class Item (
 		parcel.readString()!!,
 		parcel.readString()!!,
 		parcel.readInt(),
+		parcel.readString()!!,
 		parcel.readString()!!,
 		parcel.readString()!!,
 		parcel.readString()!!
@@ -34,10 +42,11 @@ data class Item (
 		p0.writeString(bsId)
 		p0.writeString(title)
 		p0.writeString(bsName)
-		p0.writeString(category)
 		p0.writeInt(price)
+		p0.writeString(category)
 		p0.writeString(quantity)
 		p0.writeString(description)
+		p0.writeString(image)
 	}
 
 	companion object CREATOR : Parcelable.Creator<Item> {

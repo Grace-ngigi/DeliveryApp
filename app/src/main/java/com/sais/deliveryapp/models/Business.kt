@@ -4,13 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Business(
-	var retailerId: String = "",
+	val retailerId: String="",
 	var bsName: String="",
 	var type: String="",
 	var location: String="",
 	var till: Int= 0,
-	var bsOwner: String = "",
-	var contact: Int = 0,
+	var bsLogo: String ="",
 	var id: String=""
 	): Parcelable {
 	constructor(parcel: Parcel) : this(
@@ -20,9 +19,8 @@ data class Business(
 		parcel.readString()!!,
 		parcel.readInt(),
 		parcel.readString()!!,
-		parcel.readInt(),
 		parcel.readString()!!
-		) {
+	) {
 	}
 
 	override fun describeContents(): Int {
@@ -35,8 +33,7 @@ data class Business(
 		p0.writeString(type)
 		p0.writeString(location)
 		p0.writeInt(till)
-		p0.writeString(bsOwner)
-		p0.writeInt(contact)
+		p0.writeString(bsLogo)
 		p0.writeString(id)
 	}
 

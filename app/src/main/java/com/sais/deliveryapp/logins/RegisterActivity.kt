@@ -98,11 +98,11 @@ class RegisterActivity : BaseActivity() {
 		finish()
 	}
 
-	private fun saveRetailerToDb() {
-		val registeredEmail = auth.currentUser?.email!!
-		retailer= Retailer(auth.currentUser!!.uid, registeredEmail)
-		FireStore().saveRetailerInfo(this, retailer!!)
-	}
+//	private fun saveRetailerToDb() {
+//		val registeredEmail = auth.currentUser?.email!!
+//		retailer= Retailer(auth.currentUser!!.uid, registeredEmail)
+//		FireStore().saveRetailerInfo(this, retailer!!)
+//	}
 
 	fun saveRetailerSuccess(){
 		hideProgressDialog()

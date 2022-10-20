@@ -7,10 +7,12 @@ import android.text.TextUtils
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.sais.deliveryapp.activities.BaseActivity
+import com.sais.deliveryapp.activities.BottomTestActivity
 import com.sais.deliveryapp.activities.ProfileActivity
 import com.sais.deliveryapp.databinding.ActivityLoginBinding
 import com.sais.deliveryapp.frebase.FireStore
 import com.sais.deliveryapp.models.Retailer
+import com.sais.deliveryapp.utils.Constants
 
 class LoginActivity : BaseActivity() {
 	lateinit var binding: ActivityLoginBinding
@@ -37,9 +39,6 @@ class LoginActivity : BaseActivity() {
 	private fun loginRetailer(){
 		 email = binding.tetEmail.text.toString().trim{it <= ' '}
 		 password = binding.tetPassword.text.toString()
-
-		//TODO:Save Users Credentials in Firebase
-
 		if (validateForm(email,password)){
 			showProgressDialog()
 			auth.signInWithEmailAndPassword(email,password)
@@ -75,7 +74,8 @@ class LoginActivity : BaseActivity() {
 
 	fun emailVerifiedSuccess(){
 		hideProgressDialog()
-		startActivity(Intent(this, ProfileActivity::class.java))
+		val intent = Intent(this, BottomTestActivity::class.java)
+		startActivityForResult(intent, Constants.LOGIN_USER)
 		finish()
 		Toast.makeText(this,"Signed In Successfully", Toast.LENGTH_SHORT).show()
 	}

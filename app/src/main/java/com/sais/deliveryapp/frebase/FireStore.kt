@@ -1,16 +1,14 @@
 package com.sais.deliveryapp.frebase
 
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.sais.deliveryapp.activities.*
 import com.sais.deliveryapp.logins.LoginActivity
 import com.sais.deliveryapp.logins.RegisterActivity
-import com.sais.deliveryapp.models.Business
-import com.sais.deliveryapp.models.Item
-import com.sais.deliveryapp.models.Items
-import com.sais.deliveryapp.models.Retailer
+import com.sais.deliveryapp.models.*
 import com.sais.deliveryapp.utils.Constants
 
 class FireStore {
@@ -50,25 +48,37 @@ class FireStore {
 		}
 	}
 
-	fun saveRetailerInfo(activity : RegisterActivity, retailerInfo: Retailer){
+	fun saveRetailer(activity : RegisterBusiness, retailerInfo: Retailer){
 		db.collection(Constants.RETAILERS)
 			.document(getCurrentUserId())
 			.set(retailerInfo, SetOptions.merge())
 			.addOnSuccessListener {
-				activity.saveRetailerSuccess()
+//				activity.saveRetailerSuccess()
 			}
 			.addOnFailureListener { error->
-				activity.saveRetailerFailure()
 				activity.showErrorSnackBar("Failed to register retailer: ${error.message}")
 			}
 	}
 
-	fun saveBsProfile(activity: RegisterBusiness, businessInfo: Business){
+	fun saveBusiness(activity: RegisterBusiness, business: Business){
 		db.collection(Constants.BUSINESS)
-			.document(businessInfo.id)
-			.set(businessInfo, SetOptions.merge())
+			.document(business.id)
+			.set(business, SetOptions.merge())
 			.addOnSuccessListener {
-				activity.saveBusinessSuccess()
+				activity.addBusinessSuccess()
+			}
+			.addOnFailureListener {
+				activity.hideProgressDialog()
+				activity.showErrorSnackBar("Error: ${it.message}")
+			}
+	}
+
+	fun addBusiness(activity: RegisterBusiness, business: Business){
+		db.collection(Constants.BUSINESS)
+			.document(business.id)
+			.set(business, SetOptions.merge())
+			.addOnSuccessListener {
+				activity.addBusinessSuccess()
 			}
 			.addOnFailureListener {
 				activity.hideProgressDialog()
@@ -93,6 +103,20 @@ class FireStore {
 			}
 			.addOnFailureListener {
 				activity.showErrorSnackBar("${it.message}")
+			}
+	}
+
+	fun updateBusiness(activity: RegisterBusiness, businessHashMap: HashMap<String, Any>, business: Business){
+		db.collection(Constants.BUSINESS)
+			.document(business.id)
+			.update(businessHashMap)
+			.addOnSuccessListener {
+				Toast.makeText(activity, "Updated successfully", Toast.LENGTH_SHORT).show()
+				activity.updateBsSuccess()
+			}
+			.addOnFailureListener { exception ->
+				activity.hideProgressDialog()
+				Toast.makeText(activity, "${exception.message}", Toast.LENGTH_SHORT).show()
 			}
 	}
 
@@ -140,6 +164,33 @@ class FireStore {
 					itemsList.add(item)
 				}
 				activity.allItems(itemsList)
+			}
+			.addOnFailureListener {
+				activity.hideProgressDialog()
+				activity.showErrorSnackBar("${it.message}")
+			}
+	}
+
+	fun updateItem(activity: UploadItem, itemHashMap: HashMap <String, Any>, item: Item){
+		db.collection(Constants.ITEMS)
+			.document(item.id)
+			.update(itemHashMap)
+			.addOnSuccessListener {
+				Toast.makeText(activity, "Updated successfully", Toast.LENGTH_SHORT).show()
+				activity.updateItemSuccess()
+			}
+			.addOnFailureListener { exception ->
+				activity.hideProgressDialog()
+				Toast.makeText(activity, "${exception.message}", Toast.LENGTH_SHORT).show()
+			}
+	}
+
+	fun deleteItem(activity: ItemsActivity, item: Item){
+		db.collection(Constants.ITEMS)
+			.document(item.id)
+			.delete()
+			.addOnSuccessListener {
+				activity.deleteSuccess()
 			}
 			.addOnFailureListener {
 				activity.hideProgressDialog()

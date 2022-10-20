@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.sais.deliveryapp.R
 import com.sais.deliveryapp.activities.ItemsActivity
 import com.sais.deliveryapp.databinding.BusinessListBinding
 import com.sais.deliveryapp.databinding.ItemsListBinding
@@ -26,6 +28,7 @@ class BusinessAdapter(private val context: Context,
 			val location = binding.tvLocation
 			val tillNo = binding.tvTillNo
 			val addItem = binding.tvGoToItems
+			val update = binding.tvUpdate
 		}
 	private  var onClickListener: BusinessOnClickListener? = null
 
@@ -47,8 +50,15 @@ class BusinessAdapter(private val context: Context,
 		holder.type.text = item.type
 		holder.location.text = item.location
 		holder.tillNo.text = item.till.toString()
+		Glide.with(context)
+			.load(item.bsLogo)
+			.centerCrop()
+			.into(holder.pic)
 
 		holder.addItem.setOnClickListener {
+			onClickListener?.onClick(it, item)
+		}
+		holder.update.setOnClickListener {
 			onClickListener?.onClick(it, item)
 		}
 	}

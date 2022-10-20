@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.sais.deliveryapp.databinding.ProfileItemsBinding
 import com.sais.deliveryapp.models.Business
 import com.sais.deliveryapp.models.Item
@@ -18,6 +19,7 @@ class ProfileItemAdapter(private val context: Context,
 			val desc = binding.tvDescription
 			val price = binding.tvDisplayPrice
 			val quantity = binding.tvItemQuantity
+			val image = binding.ivItem
 			val edit = binding.btEdit
 			val delete = binding.btDelete
 		}
@@ -43,6 +45,10 @@ class ProfileItemAdapter(private val context: Context,
 		holder.desc.text = item.description
 		holder.price.text = item.price.toString()
 		holder.quantity.text = item.quantity
+		Glide.with(context)
+			.load(item.image)
+			.centerCrop()
+			.into(holder.image)
 
 		holder.edit.setOnClickListener {
 			onClickLister?.onClick(it, item)

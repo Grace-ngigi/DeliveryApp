@@ -1,12 +1,10 @@
 package com.sais.deliveryapp.activities
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sais.deliveryapp.R
@@ -30,8 +28,8 @@ class ItemsActivity : BaseActivity() {
 
 		db = FirebaseFirestore.getInstance()
 
-		if (intent.hasExtra(Constants.EXTRA_BUSINESS_INFO)) {
-			businessInfo = intent.getParcelableExtra<Business>(Constants.EXTRA_BUSINESS_INFO)!! as Business
+		if (intent.hasExtra(Constants.EXTRA_BUSINESS)) {
+			businessInfo = intent.getParcelableExtra<Business>(Constants.EXTRA_BUSINESS)!! as Business
 		}
 		if (businessInfo != null){
 			showProgressDialog()
@@ -39,8 +37,17 @@ class ItemsActivity : BaseActivity() {
 		}
 		binding.fabItems.setOnClickListener {
 				val intent = Intent(this, UploadItem::class.java)
-				intent.putExtra(Constants.EXTRA_BUSINESS_INFO, businessInfo)
-				startActivity(intent)
+				intent.putExtra(Constants.EXTRA_BUSINESS, businessInfo)
+				startActivityForResult(intent, Constants.ADD_ITEM_REQUEST)
+		}
+	}
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		if (resultCode == Activity.RESULT_OK &&
+			requestCode == Constants.ADD_ITEM_REQUEST ||
+				requestCode == Constants.UPDATE_ITEM_REQUEST){
+			FireStore().fetchItems(this,businessInfo!!)
 		}
 	}
 
@@ -52,8 +59,7 @@ class ItemsActivity : BaseActivity() {
 
 			 val itemsAdapter = ProfileItemAdapter(this, items)
 			 binding.rvUploadedItems.adapter = itemsAdapter
-
-		binding.rvUploadedItems.layoutManager =
+			 binding.rvUploadedItems.layoutManager =
 			LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
 				false)
 
@@ -62,16 +68,16 @@ class ItemsActivity : BaseActivity() {
 					 when (view.id) {
 						 R.id.btEdit -> {
 								 val intent = Intent(this@ItemsActivity, UploadItem::class.java)
-								 intent.putExtra(Constants.EXTRA_ITEM_INFO, items)
-								 startActivity(intent)
+								 intent.putExtra(Constants.EXTRA_ITEM_INFO, item)
+								 startActivityForResult(intent, Constants.UPDATE_ITEM_REQUEST)
 						 }
 						 R.id.btDelete ->{
 							 val builder = AlertDialog.Builder(this@ItemsActivity)
 							 builder.setTitle("Deleting ${item.title}")
 							 builder.setMessage(R.string.delete_confirmation)
 							 builder.setPositiveButton(R.string.delete) { _, _ ->
-								 //TODO: Actually Deleting the item
-								 showToast("meant to Delete the item")
+								 showProgressDialog()
+								 FireStore().deleteItem(this@ItemsActivity, item)
 							 }
 
 							 builder.setNegativeButton(R.string.no) { _, _ ->
@@ -88,4 +94,10 @@ class ItemsActivity : BaseActivity() {
 			 binding.tvNoItems.visibility = View.VISIBLE
 		 }
 	 }
+
+	fun deleteSuccess(){
+		hideProgressDialog()
+		showToast("Deleted")
+		FireStore().fetchItems(this, businessInfo!!)
+	}
 }
