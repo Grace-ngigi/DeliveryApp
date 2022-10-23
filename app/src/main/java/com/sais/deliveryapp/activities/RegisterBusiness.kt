@@ -318,7 +318,7 @@ class RegisterBusiness : BaseActivity() {
 						Glide.with(this@RegisterBusiness)
 							.load(mSelectedImageUri)
 							.centerCrop()
-							.placeholder(R.drawable.ic_view_list)
+							.placeholder(R.drawable.add_screen_image_placeholder)
 							.into(binding.ivDisplayLogo)
 					} catch (e: IOException){
 						e.printStackTrace()

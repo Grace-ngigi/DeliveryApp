@@ -8,15 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="418dp"
-        android:layout_height="618dp"
-        android:background="@color/color_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:background="@drawable/banner_intro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -24,38 +21,51 @@
         android:layout_height="222dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.397"
         app:srcCompat="@drawable/movers" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/del_name"
         android:padding="20dp"
-        android:textSize="@dimen/del_font_size"
+        android:text="@string/del_name"
         android:textColor="@color/yellow"
+        android:textSize="@dimen/del_font_size"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginTop="25dp"
+        android:text="Delivery"
+        android:textColor="@color/yellow"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/food_delivery_app"
-        android:textSize="@dimen/font_size"
-        android:textStyle="bold"
+        android:padding="10dp"
+        android:text="Make your order today from various restaurants, supermarkets, chemists and alcoholic joints"
         android:textColor="@color/yellow"
+        android:textSize="20dp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/btnStart"

@@ -67,16 +67,16 @@ class UploadItem : BaseActivity() {
 			binding.tetBsDesc.setText(item!!.description)
 			binding.tetBsPrice.setText(item!!.price.toString())
 			loadCategory()
-			binding.btUpdate.visibility = View.VISIBLE
-			binding.btSubmit.visibility = View.GONE
+			binding.btItemUpdate.visibility = View.VISIBLE
+			binding.btItemSubmit.visibility = View.GONE
 		} else{
 			categoryText()
 		}
-		binding.btSubmit.setOnClickListener { if (checkInternetConnectivity()){uploadItems() }}
+		binding.btItemSubmit.setOnClickListener { if (checkInternetConnectivity()){uploadItems() }}
 
-		binding.btUpdate.setOnClickListener { if (checkInternetConnectivity()){updateItemHashMap() }}
+		binding.btItemUpdate.setOnClickListener { if (checkInternetConnectivity()){updateItemHashMap() }}
 
-		binding.ivUploadImage.setOnClickListener { chooseItemImage() }
+		binding.tvUploadPhoto.setOnClickListener { chooseItemImage() }
 	}
 
 	private fun uploadItems() {
@@ -307,7 +307,7 @@ class UploadItem : BaseActivity() {
 						.load(mSelectedImageUri)
 						.centerCrop()
 						.placeholder(com.sais.deliveryapp.R.drawable.ic_view_list)
-						.into(binding.ivDisplayImage)
+						.into(binding.ivDisplayPhoto)
 				} catch (e: IOException){
 					e.printStackTrace()
 				}

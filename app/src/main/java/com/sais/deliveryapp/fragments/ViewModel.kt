@@ -1,14 +1,20 @@
 package com.sais.deliveryapp.fragments
 
+import android.app.Dialog
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.sais.deliveryapp.R
 import com.sais.deliveryapp.activities.*
 import com.sais.deliveryapp.models.Business
+import com.sais.deliveryapp.models.CartItem
 import com.sais.deliveryapp.models.Item
 import com.sais.deliveryapp.models.Retailer
 import com.sais.deliveryapp.utils.Constants
+import kotlin.contracts.contract
 
 class ViewModel: ViewModel() {
 	private val db = FirebaseFirestore.getInstance()
@@ -23,7 +29,7 @@ class ViewModel: ViewModel() {
 		return currentUserId
 	}
 
-	fun fetchBusiness(activity: AccountFragment){
+	fun fetchBusiness(fragment: AccountFragment){
 		db.collection(Constants.BUSINESS)
 			.whereEqualTo("retailerId", getCurrentUserId())
 			.get()
@@ -36,14 +42,14 @@ class ViewModel: ViewModel() {
 					bs!!.id = i.id
 					businessList.add(bs)
 				}
-				activity.businessDetails(businessList)
+				fragment.businessDetails(businessList)
 			}
 			.addOnFailureListener {
-//				activity.showErrorSnackBar("${it.message}")
+//				fragment.showErrorSnackBar("${it.message}")
 			}
 	}
 
-	fun fetchBusinessProfile(activity: AccountFragment){
+	fun fetchBusinessProfile(fragment: AccountFragment){
 		db.collection(Constants.RETAILERS)
 			.whereEqualTo("id", getCurrentUserId())
 			.get()
@@ -55,14 +61,14 @@ class ViewModel: ViewModel() {
 					bs!!.id = i.id
 					businessList.add(bs)
 				}
-				activity.bsProfileDetails(businessList)
+				fragment.bsProfileDetails(businessList)
 			}
 			.addOnFailureListener {
-//				activity.showErrorSnackBar("${it.message}")
+//				fragment.showErrorSnackBar("${it.message}")
 			}
 	}
 
-	fun fetchAllItems(activity: HomeFragment){
+	fun fetchAllItems(fragment: HomeFragment){
 		db.collection(Constants.ITEMS)
 			.get()
 			.addOnSuccessListener {
@@ -72,11 +78,23 @@ class ViewModel: ViewModel() {
 					item.id = i.id
 					itemsList.add(item)
 				}
-				activity.allItems(itemsList)
+				fragment.allItems(itemsList)
 			}
 			.addOnFailureListener {
-//				activity.hideProgressDialog()
-//				activity.showErrorSnackBar("${it.message}")
+//				fragment.hideProgressDialog()
+//				fragment.showErrorSnackBar("${it.message}")
+			}
+	}
+
+	fun addToCart(fragment: HomeFragment, cartItem:CartItem){
+		db.collection(Constants.CART_ITEM)
+			.document(cartItem.id)
+			.set(cartItem, SetOptions.merge())
+			.addOnSuccessListener {
+				fragment.addToCartSuccess()
+			}
+			.addOnFailureListener {
+				it.message?.let { it1 -> fragment.addToCartFailure(it1) }
 			}
 	}
 }

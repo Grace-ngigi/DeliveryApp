@@ -43,6 +43,11 @@ class BottomTestActivity : AppCompatActivity() {
 			}
 			true
 		}
+
+		binding.fabCart.setOnClickListener {
+			val intent = Intent(this, CartActivity::class.java)
+			startActivity(intent)
+		}
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

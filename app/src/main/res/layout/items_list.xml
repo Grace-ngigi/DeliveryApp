@@ -78,14 +78,17 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivItem"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tangerine" />
+
 
     <TextView
         android:id="@+id/btAddItem"

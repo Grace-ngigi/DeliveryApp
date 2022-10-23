@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.sais.deliveryapp.activities.*
+import com.sais.deliveryapp.fragments.HomeFragment
 import com.sais.deliveryapp.logins.LoginActivity
 import com.sais.deliveryapp.logins.RegisterActivity
 import com.sais.deliveryapp.models.*
@@ -182,6 +183,23 @@ class FireStore {
 			.addOnFailureListener { exception ->
 				activity.hideProgressDialog()
 				Toast.makeText(activity, "${exception.message}", Toast.LENGTH_SHORT).show()
+			}
+	}
+
+	fun fetchCartItems(activity: CartActivity){
+		db.collection(Constants.CART_ITEM)
+			.get()
+			.addOnSuccessListener {
+				val itemsList : ArrayList<CartItem> = ArrayList()
+				for (i in it){
+					val item = i.toObject(CartItem::class.java)
+					item.id = i.id
+					itemsList.add(item)
+				}
+				activity.fetchCartItems(itemsList)
+			}
+			.addOnFailureListener {
+				activity.showToast(it.message!!)
 			}
 	}
 

@@ -18,6 +18,9 @@ object Constants {
 	const val EXTRA_ITEM_INFO = "items"
 	const val ITEMS = "Items"
 
+	const val EXTRA_CART_ITEM = "items"
+	const val CART_ITEM = " Cart Items"
+
 	const val LOGO_GALLERY = 1
 	const val ITEM_GALLERY = 2
 	const val ADD_BS_REQUEST = 3

@@ -7,28 +7,69 @@
     android:layout_height="match_parent"
     tools:context=".activities.ItemsActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/tvNoItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_items_uploaded_yet"
+        android:textAlignment="center"
+        android:textSize="@dimen/logins_font_Size"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/cordAddItems">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etSearchItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/button_style"
+                android:drawableStart="@drawable/ic_search_white"
+                android:drawablePadding="10dp"
+                android:hint="@string/find_your_item"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvUploadedItems"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/etSearchItems" />
 
-        <TextView
-            android:id="@+id/tvNoItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/no_items_uploaded_yet"
-            android:textAlignment="center"
-            android:textSize="@dimen/logins_font_Size"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rvUploadedItems" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cordAddItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

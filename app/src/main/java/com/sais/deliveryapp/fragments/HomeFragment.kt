@@ -1,5 +1,6 @@
 package com.sais.deliveryapp.fragments
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import com.sais.deliveryapp.utils.Constants
 class HomeFragment : Fragment(R.layout.fragment_home) {
 		lateinit var binding: FragmentHomeBinding
 		private var businessInfo : Business? = null
+		private var totalPrice: Int = 0
 		private lateinit var db: FirebaseFirestore
 	private var catInfo = ArrayList<CategoryList>()
 	private var popularInfo = ArrayList<SampleList>()
@@ -32,7 +34,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 		override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 			super.onViewCreated(view, savedInstanceState)
 			binding = FragmentHomeBinding.bind(view)
-
+			db= FirebaseFirestore.getInstance()
 			setCategories()
 			setUpSampleItems()
 //			showProgressDialog()
@@ -48,16 +50,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 			itemAdapter?.setOnClickListener(object : ItemAdapter.ItemOnClickListener{
 				override fun onClick(view: View, item: Item) {
-//					val intent = Intent(context, CartActivity::class.java)
-//					intent.putExtra(Constants.EXTRA_ITEM_INFO, item)
-//					startActivity(intent)
-					Toast.makeText(context, "Added to Cart",
-					Toast.LENGTH_LONG).show()
+
+					val id = db.collection(Constants.CART_ITEM).document().id
+					val cartItem = CartItem(
+						id,
+						bsId = item.bsId,
+						title = item.title,
+						bsName = item.bsName,
+						price = item.price,
+						quantity = item.quantity,
+						description = item.description,
+						category = item.category,
+						image = item.image
+					)
+					ViewModel().addToCart(this@HomeFragment, cartItem)
 				}
 			})
 		}
 	}
-
+	fun addToCartSuccess(){
+		Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show()
+	}
+	fun addToCartFailure(error: String){
+		Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+	}
 	private fun setCategories() {
 		binding.rvCategoryList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 		val categoryAdapter = CategoryAdapter(requireContext(), catInfo)
